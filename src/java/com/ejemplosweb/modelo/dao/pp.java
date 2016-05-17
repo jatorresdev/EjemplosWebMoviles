@@ -24,10 +24,8 @@ public class pp {
      */
     public static void main(String[] args) {
         try {
-            //new ConexionBD();
-            
-             Connection cnn = ConexionBD.obtenerConexionBD();
-            
+            Connection cnn = ConexionBD.obtenerConexionBD();
+
             UsuarioDAO daoUsu = new UsuarioDAO(cnn);
             UsuarioVO voUsu = new UsuarioVO();
             EventoVO voEvent = new EventoVO();
@@ -39,16 +37,11 @@ public class pp {
             daoEvent.insertar(voEvent);
 
             ConexionBD.cerrarConexion(cnn);
-            
-            
-        }catch(ClassNotFoundException e){
+
+        } catch (ClassNotFoundException e) {
             System.out.println("No se encontro el Driver de Mysql");
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-   
-    
 }
