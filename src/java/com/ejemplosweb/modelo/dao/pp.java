@@ -7,9 +7,10 @@ package com.ejemplosweb.modelo.dao;
 
 import com.ejemplosweb.modelo.vo.AmigoVO;
 import com.ejemplosweb.modelo.vo.EventoVO;
-import com.ejemplosweb.modelo.vo.GenericoVO;
+import com.ejemplosweb.modelo.vo.IGenericoVO;
 import com.ejemplosweb.modelo.vo.UsuarioVO;
 import com.sun.xml.rpc.encoding.GenericObjectSerializer;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -24,16 +25,20 @@ public class pp {
     public static void main(String[] args) {
         try {
             //new ConexionBD();
-            UsuarioDAO daoUsu = new UsuarioDAO();
+            
+             Connection cnn = ConexionBD.obtenerConexionBD();
+            
+            UsuarioDAO daoUsu = new UsuarioDAO(cnn);
             UsuarioVO voUsu = new UsuarioVO();
             EventoVO voEvent = new EventoVO();
             AmigoVO voAmigo = new AmigoVO();
             daoUsu.insertar(voUsu);
-            EventoDAO daoEvent = new EventoDAO();
-            AmigoDAO daoAmi = new AmigoDAO();
+            EventoDAO daoEvent = new EventoDAO(cnn);
+            AmigoDAO daoAmi = new AmigoDAO(cnn);
             daoAmi.insertar(voAmigo);
             daoEvent.insertar(voEvent);
 
+            ConexionBD.cerrarConexion(cnn);
             
             
         }catch(ClassNotFoundException e){

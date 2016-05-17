@@ -9,6 +9,6 @@ package com.ejemplosweb.modelo.vo;
  *
  * @author APRENDIZ
  */
-public interface GenericoVO {
+public interface IGenericoVO {
     
 }

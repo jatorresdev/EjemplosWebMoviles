@@ -6,7 +6,8 @@
 package com.ejemplosweb.modelo.dao;
 
 import com.ejemplosweb.modelo.vo.EventoVO;
-import com.ejemplosweb.modelo.vo.GenericoVO;
+import com.ejemplosweb.modelo.vo.IGenericoVO;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,12 +15,16 @@ import java.util.List;
  *
  * @author Fabian
  */
-public class EventoDAO extends ConexionBD<EventoVO>{
+public class EventoDAO implements IGenericoDAO<EventoVO>{
 
-    public EventoDAO() throws ClassNotFoundException, SQLException {
-        super();
+     Connection cnn;
+
+    public EventoDAO(Connection cnn) {
+        this.cnn = cnn;
     }
-
+     
+     
+     
     @Override
     public void insertar(EventoVO vo) {
         System.out.println("Insertar Event --> " + vo.toString());

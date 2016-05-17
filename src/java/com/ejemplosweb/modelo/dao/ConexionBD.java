@@ -1,38 +1,27 @@
 package com.ejemplosweb.modelo.dao;
 
-import com.ejemplosweb.modelo.vo.GenericoVO;
+import com.ejemplosweb.modelo.vo.IGenericoVO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class ConexionBD <I extends GenericoVO> {
-    
-    Connection cnn;
-    
-    public Connection getCnn(){
-        return cnn;
-    }
-    
-    public ConexionBD() throws ClassNotFoundException, SQLException{
+public abstract class ConexionBD {
+
+    public static Connection obtenerConexionBD() throws ClassNotFoundException, SQLException {
+        Connection cnn;
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/miniface";
         String usuario = "java";
         String pass = "java1234";
-        this.cnn = DriverManager.getConnection(url,usuario,pass);
-        this.cnn.setAutoCommit(false);
+        cnn = DriverManager.getConnection(url, usuario, pass);
+        cnn.setAutoCommit(false);
+        return cnn;
     }
-    
-    public void cerrarConexion() throws SQLException{
+
+    public static void cerrarConexion(Connection cnn) throws SQLException {
         cnn.commit();
         cnn.close();
     }
-    
-    public abstract void insertar(I vo);
-    
-    public abstract void modificar(I vo);
-    
-    public abstract void borrar(I vo);
-    
-    public abstract List<I> consultar();
+
 }

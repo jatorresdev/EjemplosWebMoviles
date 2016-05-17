@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author APRENDIZ
  */
-public class UsuarioVO implements GenericoVO {
+public class UsuarioVO implements IGenericoVO {
     private int idUsuario;
     private String nombreUsuario;
     private String apellidoUsuario;

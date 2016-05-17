@@ -9,7 +9,7 @@ package com.ejemplosweb.modelo.vo;
  *
  * @author APRENDIZ
  */
-public class AmigoVO implements GenericoVO {
+public class AmigoVO implements IGenericoVO {
     private int idUsuario1;
     private int idUsuario2;
 

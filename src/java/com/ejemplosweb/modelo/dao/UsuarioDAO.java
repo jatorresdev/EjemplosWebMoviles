@@ -5,8 +5,9 @@
  */
 package com.ejemplosweb.modelo.dao;
 
-import com.ejemplosweb.modelo.vo.GenericoVO;
+import com.ejemplosweb.modelo.vo.IGenericoVO;
 import com.ejemplosweb.modelo.vo.UsuarioVO;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,11 +15,12 @@ import java.util.List;
  *
  * @author Fabian
  */
-public class UsuarioDAO extends ConexionBD<UsuarioVO>{
+public class UsuarioDAO implements IGenericoDAO<UsuarioVO> {
 
-    public UsuarioDAO() throws ClassNotFoundException, SQLException {
-        super();
-        this.getCnn();
+    Connection cnn;
+
+    public UsuarioDAO(Connection cnn) {
+        this.cnn = cnn;
     }
 
     @Override
@@ -39,5 +41,6 @@ public class UsuarioDAO extends ConexionBD<UsuarioVO>{
     @Override
     public List<UsuarioVO> consultar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }  
+    }
+
 }

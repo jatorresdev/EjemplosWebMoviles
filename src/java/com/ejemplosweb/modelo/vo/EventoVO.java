@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author APRENDIZ
  */
-public class EventoVO implements GenericoVO {
+public class EventoVO implements IGenericoVO {
     private int idEvento;
     private Date fechaEvento;
     private String lugarEvento;
