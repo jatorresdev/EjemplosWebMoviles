@@ -6,8 +6,9 @@
 package com.ejemplosweb.modelo.dao;
 
 import com.ejemplosweb.modelo.vo.EventoVO;
-import com.ejemplosweb.modelo.vo.IGenericoVO;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,19 +16,38 @@ import java.util.List;
  *
  * @author Fabian
  */
-public class EventoDAO implements IGenericoDAO<EventoVO>{
+public class EventoDAO implements IGenericoDAO<EventoVO> {
 
-     Connection cnn;
+    Connection cnn;
 
     public EventoDAO(Connection cnn) {
         this.cnn = cnn;
     }
-     
-     
-     
+
     @Override
-    public void insertar(EventoVO vo) {
-        System.out.println("Insertar Event --> " + vo.toString());
+    public void insertar(EventoVO vo) throws SQLException {
+        String sql = "INSERT INTO evento (fecha_evento, lugar_evento,"
+                + "hora_evento, nombre_evento, nombre_creador) VALUES (?,?,?,?,?)";
+        PreparedStatement sentencia = cnn.prepareStatement(sql);
+
+        sentencia.setDate(1, new java.sql.Date(vo.getFechaEvento().getTime()));
+        sentencia.setString(2, vo.getLugarEvento());
+        sentencia.setTime(3, new java.sql.Time(vo.getHoraEvento().getTime()));
+        sentencia.setString(4, vo.getNombreEvento());
+        sentencia.setString(5, vo.getNombreCreador());
+
+        sentencia.executeUpdate();
+        
+        try (ResultSet generatedKeys = sentencia.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                vo.setIdEvento(generatedKeys.getInt(1));
+            }
+            else {
+                throw new SQLException("No ID");
+            }
+        } catch (Exception e) {
+            throw new SQLException("Error al registrar Evento");
+        }
     }
 
     @Override
@@ -45,6 +65,4 @@ public class EventoDAO implements IGenericoDAO<EventoVO>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
-    
 }

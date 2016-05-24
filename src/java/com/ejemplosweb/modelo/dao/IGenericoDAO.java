@@ -7,6 +7,7 @@ package com.ejemplosweb.modelo.dao;
 
 import com.ejemplosweb.modelo.vo.IGenericoVO;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,12 +17,12 @@ import java.util.List;
 public interface IGenericoDAO<I extends IGenericoVO> {
     
     
-    public void insertar(I vo);
+    public void insertar(I vo) throws SQLException;
 
-    public void modificar(I vo);
+    public void modificar(I vo) throws SQLException;
 
-    public void borrar(I vo);
+    public void borrar(I vo) throws SQLException;
 
-    public List<I> consultar();
+    public List<I> consultar() throws SQLException;
 
 }

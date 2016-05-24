@@ -10,21 +10,21 @@ package com.ejemplosweb.modelo.vo;
  * @author APRENDIZ
  */
 public class InvitadoVO implements IGenericoVO {
-    private InvitadoVO idInvitado;
+    private int idInvitado;
     private UsuarioVO idUsuario;
     private EventoVO idEvento;
 
     /**
      * @return the idInvitado
      */
-    public InvitadoVO getIdInvitado() {
+    public int getIdInvitado() {
         return idInvitado;
     }
 
     /**
      * @param idInvitado the idInvitado to set
      */
-    public void setIdInvitado(InvitadoVO idInvitado) {
+    public void setIdInvitado(int idInvitado) {
         this.idInvitado = idInvitado;
     }
 
