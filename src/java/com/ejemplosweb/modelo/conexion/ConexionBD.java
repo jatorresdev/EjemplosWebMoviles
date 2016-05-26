@@ -1,12 +1,10 @@
-package com.ejemplosweb.modelo.dao;
+package com.ejemplosweb.modelo.conexion;
 
-import com.ejemplosweb.modelo.vo.IGenericoVO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
-public abstract class ConexionBD {
+public class ConexionBD {
 
     public static Connection obtenerConexionBD() throws ClassNotFoundException, SQLException {
         Connection cnn;

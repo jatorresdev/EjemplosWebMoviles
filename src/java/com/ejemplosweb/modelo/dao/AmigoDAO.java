@@ -1,7 +1,6 @@
 package com.ejemplosweb.modelo.dao;
 
 import com.ejemplosweb.modelo.vo.AmigoVO;
-import com.ejemplosweb.modelo.vo.IGenericoVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

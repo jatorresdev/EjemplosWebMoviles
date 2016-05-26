@@ -52,7 +52,17 @@ public class EventoDAO implements IGenericoDAO<EventoVO> {
 
     @Override
     public void modificar(EventoVO vo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        String sql = "UPDATE evento SET fecha_evento = ?, lugar_evento = ?,"
+//                + "hora_evento = ?, nombre_evento = ?, nombre_creador = ? WHERE id_usuario = ?";
+//        PreparedStatement sentencia = cnn.prepareStatement(sql);
+//        sentencia.setString(1, vo.getNombreUsuario());
+//        sentencia.setString(2, vo.getApellidoUsuario());
+//        sentencia.setDate(3, new java.sql.Date(vo.getFechaNacimientoUsuario().getTime()));
+//        sentencia.setString(4, vo.getCorreoUsuario());
+//        sentencia.setString(5, vo.getClaveUsuario());
+//        sentencia.setInt(6, vo.getIdUsuario());
+//
+//        sentencia.executeUpdate();
     }
 
     @Override
