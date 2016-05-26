@@ -103,6 +103,7 @@ public class UsuarioDAO implements IGenericoDAO<UsuarioVO> {
     public UsuarioVO consultar(int idUsuario) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
         PreparedStatement sentencia = cnn.prepareStatement(sql);
+        sentencia.setInt(1, idUsuario);
         ResultSet resultado = sentencia.executeQuery();
 
         if (resultado.next()) {
