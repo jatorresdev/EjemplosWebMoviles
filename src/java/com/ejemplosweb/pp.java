@@ -29,7 +29,7 @@ public class pp {
      */
     public static void main(String[] args) {
         try {
-            Connection cnn = ConexionBD.obtenerConexionBD();
+            //Connection cnn = ConexionBD.obtenerConexionBD();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm a");
             
@@ -98,8 +98,6 @@ public class pp {
             
             System.out.println("Fin");
 
-        } catch (ClassNotFoundException e) {
-            System.out.println("No se encontro el Driver de Mysql");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,6 +12,8 @@ import com.ejemplosweb.vista.utilidades.RespuestaServlets;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,21 +45,69 @@ public class ServletUsuario extends HttpServlet {
 
             String accion = request.getServletPath().substring(request.getServletPath().lastIndexOf("/") + 1);
 
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Gson gson = new Gson();
+            
             UsuarioControlador controlUsu = new UsuarioControlador();
+            UsuarioVO voUsu = new UsuarioVO();
+            String id;
+            String nombre;
+            String apellido;
+            String fechaNacimiento;
+            String correo;
+            String clave;
 
             switch (accion) {
                 case "insertar":
-                    out.println("Inserttando");
+                    nombre = request.getParameter("nombre");
+                    apellido = request.getParameter("apellido");
+                    fechaNacimiento = request.getParameter("nacimiento");
+                    correo = request.getParameter("correo");
+                    clave = request.getParameter("clave");
+                    
+                    voUsu.setNombreUsuario(nombre);
+                    voUsu.setApellidoUsuario(apellido);
+                    voUsu.setFechaNacimientoUsuario(formato.parse(fechaNacimiento));
+                    voUsu.setCorreoUsuario(correo);
+                    voUsu.setClaveUsuario(clave);
+                    
+                    controlUsu.insertar(voUsu);
+                    controlUsu.terminarTransaccion();
+                    
                     RespuestaServlets respuesta = new RespuestaServlets();
-                    respuesta.setCodigo(500);
-                    respuesta.setMensaje("Probando Insert");
-                    respuesta.setDatos(null);
-                    Gson gson = new Gson();
+                    respuesta.setCodigo(1);
+                    respuesta.setMensaje("OK");
+                    respuesta.setDatos(voUsu);
+                    
                     String json = gson.toJson(respuesta);
                     out.println(json);
+                    
                     break;
                 case "modificar":
-                    out.println("Modificando * * ** * ** ");
+                    id = request.getParameter("id");
+                    nombre = request.getParameter("nombre");
+                    apellido = request.getParameter("apellido");
+                    fechaNacimiento = request.getParameter("nacimiento");
+                    correo = request.getParameter("correo");
+                    clave = request.getParameter("clave");
+                    
+                    voUsu.setIdUsuario(Integer.parseInt(id));
+                    voUsu.setNombreUsuario(nombre);
+                    voUsu.setApellidoUsuario(apellido);
+                    voUsu.setFechaNacimientoUsuario(formato.parse(fechaNacimiento));
+                    voUsu.setCorreoUsuario(correo);
+                    voUsu.setClaveUsuario(clave);
+                    
+                    controlUsu.modificar(voUsu);
+                    controlUsu.terminarTransaccion();
+                    
+                    RespuestaServlets respuestaMod = new RespuestaServlets();
+                    respuestaMod.setCodigo(1);
+                    respuestaMod.setMensaje("OK");
+                    respuestaMod.setDatos(voUsu);
+                    
+                    String jsonMod = gson.toJson(respuestaMod);
+                    out.println(jsonMod);
                     break;
                 case "eliminar":
                     out.println("Eliminando");
@@ -90,6 +140,8 @@ public class ServletUsuario extends HttpServlet {
             out = response.getWriter();
             out.println(json);
 
+        }catch(ParseException e){
+            e.printStackTrace();
         }
     }
 
