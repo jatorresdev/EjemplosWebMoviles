@@ -91,6 +91,8 @@ public class UsuarioDAO implements IGenericoDAO<UsuarioVO> {
             vo.setFechaNacimientoUsuario(resultado.getDate("fecha_nacimiento_usuario"));
             vo.setCorreoUsuario(resultado.getString("correo_usuario"));
             vo.setClaveUsuario(resultado.getString("clave_usuario"));
+            
+            listaUsuarios.add(vo);
         }
 
         if (listaUsuarios.size() == 0) {

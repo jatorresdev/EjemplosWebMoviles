@@ -93,6 +93,8 @@ public class EventoDAO implements IGenericoDAO<EventoVO> {
             vo.setHoraEvento(resultado.getDate("hora_evento"));
             vo.setNombreEvento(resultado.getString("nombre_evento"));
             vo.setNombreCreador(resultado.getString("nombre_creador"));
+            
+            listaEventos.add(vo);
         }
 
         if (listaEventos.size() == 0) {
