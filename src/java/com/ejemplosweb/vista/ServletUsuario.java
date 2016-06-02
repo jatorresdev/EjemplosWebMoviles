@@ -71,6 +71,7 @@ public class ServletUsuario extends HttpServlet {
                     voUsu.setCorreoUsuario(correo);
                     voUsu.setClaveUsuario(clave);
                     
+    
                     controlUsu.insertar(voUsu);
                     controlUsu.terminarTransaccion();
                     
