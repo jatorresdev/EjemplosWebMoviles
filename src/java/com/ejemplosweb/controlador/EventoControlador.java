@@ -28,4 +28,15 @@ public class EventoControlador extends IGenericoControlador<EventoDAO, EventoVO>
             throw new EjemploMovilesException(EMensajesError.ERROR_BASE_DATOS, ex);
         }
     }
+
+    public EventoVO consultar(int idEvento) throws EjemploMovilesException {
+        try {
+            EventoDAO daoEve = new EventoDAO(this.getCnn());
+            EventoVO voEve = daoEve.consultar(idEvento);
+
+            return voEve;
+        } catch (SQLException ex) {
+            throw new EjemploMovilesException(EMensajesError.ERROR_BASE_DATOS, ex);
+        }
+    }
 }

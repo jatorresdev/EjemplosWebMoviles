@@ -12,6 +12,8 @@ import com.ejemplosweb.vista.utilidades.RespuestaServlets;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,25 +44,87 @@ public class ServletEvento extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             String accion = request.getServletPath().substring(request.getServletPath().lastIndexOf("/") + 1);
-
+                    
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm a");
+            Gson gson = new Gson();
+            
             EventoControlador controlEvento = new EventoControlador();
+            EventoVO voEvento = new EventoVO();
+            
+            String id;
+            String evento;
+            String creador;
+            String hora;
+            String lugar;
+            String fecha;
 
             switch (accion) {
                 case "insertar":
-                    out.println("Inserttando");
+                    evento = request.getParameter("evento");
+                    creador = request.getParameter("creador");
+                    hora = request.getParameter("hora");
+                    lugar = request.getParameter("lugar");
+                    fecha = request.getParameter("fecha");
+                    
+                    voEvento.setNombreEvento(evento);
+                    voEvento.setNombreCreador(creador);
+                    voEvento.setHoraEvento(formatoHora.parse(hora));
+                    voEvento.setFechaEvento(formato.parse(fecha));
+                    voEvento.setLugarEvento(lugar);
+                    
+                    controlEvento.insertar(voEvento);
+                    controlEvento.terminarTransaccion();
+                    
                     RespuestaServlets respuesta = new RespuestaServlets();
-                    respuesta.setCodigo(500);
-                    respuesta.setMensaje("Probando Insert");
-                    respuesta.setDatos(null);
-                    Gson gson = new Gson();
+                    respuesta.setCodigo(1);
+                    respuesta.setMensaje("OK");
+                    respuesta.setDatos(voEvento);
+                    
                     String json = gson.toJson(respuesta);
                     out.println(json);
+                    
                     break;
                 case "modificar":
-                    out.println("Modificando * * ** * ** ");
+                    id = request.getParameter("id");
+                    evento = request.getParameter("evento");
+                    creador = request.getParameter("creador");
+                    hora = request.getParameter("hora");
+                    lugar = request.getParameter("lugar");
+                    fecha = request.getParameter("fecha");
+                    
+                    voEvento.setIdEvento(Integer.parseInt(id));
+                    voEvento.setNombreEvento(evento);
+                    voEvento.setNombreCreador(creador);
+                    voEvento.setHoraEvento(formatoHora.parse(hora));
+                    voEvento.setFechaEvento(formato.parse(fecha));
+                    voEvento.setLugarEvento(lugar);
+                    
+                    controlEvento.modificar(voEvento);
+                    controlEvento.terminarTransaccion();
+                   
+                    RespuestaServlets respuestaMod = new RespuestaServlets();
+                    respuestaMod.setCodigo(1);
+                    respuestaMod.setMensaje("OK");
+                    respuestaMod.setDatos(voEvento);
+                    
+                    String jsonMod = gson.toJson(respuestaMod);
+                    out.println(jsonMod);
+                    
                     break;
                 case "eliminar":
-                    out.println("Eliminando");
+                    id = request.getParameter("id");
+                    voEvento = controlEvento.consultar(Integer.parseInt(id));
+                    controlEvento.borrar(voEvento);
+                    controlEvento.terminarTransaccion();
+                    
+                    RespuestaServlets respuestaBorrar = new RespuestaServlets();
+                    respuestaBorrar.setCodigo(1);
+                    respuestaBorrar.setMensaje("OK");
+                    respuestaBorrar.setDatos(voEvento);
+                    
+                    String jsonBorrar = gson.toJson(respuestaBorrar);
+                    out.println(jsonBorrar);
                     break;
                 case "consultar":
                     List<EventoVO> listado = controlEvento.consultar();
@@ -90,6 +154,8 @@ public class ServletEvento extends HttpServlet {
             out = response.getWriter();
             out.println(json);
 
+        } catch(ParseException e){
+            e.printStackTrace();
         }
     }
 

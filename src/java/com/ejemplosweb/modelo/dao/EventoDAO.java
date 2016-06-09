@@ -69,7 +69,7 @@ public class EventoDAO implements IGenericoDAO<EventoVO> {
 
     @Override
     public void borrar(EventoVO vo) throws SQLException {
-        String sql = "DELETE evento WHERE id_evento = ?";
+        String sql = "DELETE FROM evento WHERE id_evento = ?";
         PreparedStatement sentencia = cnn.prepareStatement(sql);
         sentencia.setInt(1, vo.getIdEvento());
 
