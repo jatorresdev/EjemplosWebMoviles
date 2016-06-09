@@ -111,7 +111,20 @@ public class ServletUsuario extends HttpServlet {
                     out.println(jsonMod);
                     break;
                 case "eliminar":
-                    out.println("Eliminando");
+                    id = request.getParameter("id");
+                    
+                    voUsu = controlUsu.consultar(Integer.parseInt(id));
+                    controlUsu.borrar(voUsu);
+                    controlUsu.terminarTransaccion();
+                    
+                    RespuestaServlets respuestaBorrar = new RespuestaServlets();
+                    respuestaBorrar.setCodigo(1);
+                    respuestaBorrar.setMensaje("OK");
+                    respuestaBorrar.setDatos(voUsu);
+                    
+                    String jsonBorrar = gson.toJson(respuestaBorrar);
+                    out.println(jsonBorrar);
+                    
                     break;
                 case "consultar":
                     List<UsuarioVO> listado = controlUsu.consultar();

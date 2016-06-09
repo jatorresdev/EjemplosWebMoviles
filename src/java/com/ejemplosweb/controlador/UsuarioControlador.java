@@ -16,14 +16,25 @@ import java.sql.SQLException;
  *
  * @author APRENDIZ
  */
-public class UsuarioControlador extends IGenericoControlador<UsuarioDAO, UsuarioVO>{
-    
+public class UsuarioControlador extends IGenericoControlador<UsuarioDAO, UsuarioVO> {
+
     public UsuarioControlador() throws EjemploMovilesException {
         try {
             this.setCnn(ConexionBD.obtenerConexionBD());
             this.setDao(new UsuarioDAO(this.getCnn()));
         } catch (ClassNotFoundException ex) {
             throw new EjemploMovilesException(EMensajesError.ERROR_DRIVER_NO_ENCONTRADO, ex);
+        } catch (SQLException ex) {
+            throw new EjemploMovilesException(EMensajesError.ERROR_BASE_DATOS, ex);
+        }
+    }
+
+    public UsuarioVO consultar(int idUsuario) throws EjemploMovilesException {
+        try {
+            UsuarioDAO daoUsu = new UsuarioDAO(this.getCnn());
+            UsuarioVO voUsu = daoUsu.consultar(idUsuario);
+            
+            return voUsu;
         } catch (SQLException ex) {
             throw new EjemploMovilesException(EMensajesError.ERROR_BASE_DATOS, ex);
         }

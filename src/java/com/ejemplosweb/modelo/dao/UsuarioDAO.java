@@ -67,7 +67,7 @@ public class UsuarioDAO implements IGenericoDAO<UsuarioVO> {
 
     @Override
     public void borrar(UsuarioVO vo) throws SQLException {
-        String sql = "DELETE usuario WHERE id_usuario = ?";
+        String sql = "DELETE FROM usuario WHERE id_usuario = ?";
         PreparedStatement sentencia = cnn.prepareStatement(sql);
         sentencia.setInt(1, vo.getIdUsuario());
 
