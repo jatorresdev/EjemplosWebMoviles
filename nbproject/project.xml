@@ -4,6 +4,7 @@
     <configuration>
         <buildExtensions xmlns="http://www.netbeans.org/ns/ant-build-extender/1">
             <extension file="jaxws-build.xml" id="jaxws"/>
+            <extension file="rest-build.xml" id="rest.5"/>
         </buildExtensions>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
             <name>EjemplosWebMoviles</name>
@@ -16,6 +17,10 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.gson-1.4.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.jersey-bundle-1.19.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

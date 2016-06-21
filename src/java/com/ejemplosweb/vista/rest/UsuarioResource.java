@@ -35,7 +35,7 @@ public class UsuarioResource {
      * @return an instance of com.ejemplosweb.modelo.vo.UsuarioVO
      */
     @GET
-    @Path("usuarios") 
+    //@Path("consultar") 
     @Produces(MediaType.APPLICATION_JSON)
     public List<UsuarioVO> getListaUsuarios() throws EjemploMovilesException {
         try {
