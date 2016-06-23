@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author jatorresdev
  */
-@Path("Usuario")
+@Path("usuario")
 public class UsuarioResource {
     
     @Context
@@ -43,15 +43,19 @@ public class UsuarioResource {
     @GET
     //@Path("consultar")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UsuarioVO> getListaUsuarios() throws EjemploMovilesException {
-        try {
-            //TODO return proper representation object
-            UsuarioControlador control = new UsuarioControlador();
-            return control.consultar();
-        } catch (EjemploMovilesException ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
+    public List<UsuarioVO> consultarUsuarios() throws EjemploMovilesException {
+        UsuarioControlador control = new UsuarioControlador();
+        return control.consultar();
+    }
+    
+    @GET
+    @Path("consultar/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UsuarioVO consultarUsuario(@PathParam("id") int id) throws EjemploMovilesException{
+        UsuarioControlador controlUsu = new UsuarioControlador();
+        UsuarioVO voUsu = controlUsu.consultar(id);
+        
+        return voUsu;
     }
     
     @PUT
@@ -111,7 +115,7 @@ public class UsuarioResource {
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public UsuarioVO deleteUser(@PathParam("id") int id) throws EjemploMovilesException{
+    public UsuarioVO eliminarUsuario(@PathParam("id") int id) throws EjemploMovilesException{
         UsuarioControlador controlUsu = new UsuarioControlador();
         UsuarioVO voUsu = controlUsu.consultar(id);
         controlUsu.borrar(voUsu);
